@@ -7,6 +7,9 @@
 package com.saifiahmada.table;
 
 import com.saifiahmada.entity.Tes;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -44,9 +47,16 @@ public class TabelTes extends AbstractTableModel {
         Tes tes = list.get(rowIndex);
         switch (columnIndex) {
             case 0 : return tes.getId();
-            case 1 : return tes.getTgl();
+            case 1 : return formatTgl(tes.getTgl()); 
             default: return null;
         }
     }
+    
+    private String formatTgl(Date tgl){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(tgl);
+    }
+    
+    
     
 }

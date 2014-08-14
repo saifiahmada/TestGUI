@@ -10,9 +10,13 @@ import com.saifiahmada.dao.TesDaoImpl;
 import com.saifiahmada.entity.Tes;
 import com.saifiahmada.koneksi.Koneksi;
 import com.saifiahmada.table.TabelTes;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -67,7 +71,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Tgl");
 
-        dcTgl.setDateFormatString("yyyy-MM-dd");
+        dcTgl.setDateFormatString("dd-MM-yyyy");
 
         btnSimpan.setText("simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -160,11 +164,19 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = tblData.getSelectedRow();
         String id = (String) tblData.getValueAt(row, 0);
-        Date tgl = (Date) tblData.getValueAt(row, 1);
-        System.out.println("id "  + id);
-        System.out.println("tgl " + tgl.toString());
+        Date tgl = null;
+        String tglString = (String) tblData.getValueAt(row, 1);
         txId.setText(id);
+        
+        try {
+            tgl = new SimpleDateFormat("dd-MM-yyyy").parse(tglString);
+        } catch (ParseException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         dcTgl.setDate(tgl);
+        
+        
     }//GEN-LAST:event_tblDataMouseClicked
 
     /**
